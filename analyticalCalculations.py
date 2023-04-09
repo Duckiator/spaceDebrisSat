@@ -45,9 +45,6 @@ h_tropopause = 60000 * 0.3048 #Altitude of Tropopause and converting ft to m [m]
 #I am unsure about it
 Cp = 0.52 #Specific Heat Capacity for a 5cm by 5cm space debris
 
-
-height = r_e +  #the height of where the space debris from the center of the Earth
-
 #function to help determine what the temp is at a certain altitude
 #https://en.wikipedia.org/wiki/Lapse_rate
 #I got stuck on how to address the changing temperature, I probably can add another parameter for it
