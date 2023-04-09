@@ -40,8 +40,8 @@ Pa_0 = 101.325 #Standard Atmosphere Intial Pressure [kPa]
 
 h_tropopause = 60000 * 0.3048 #Altitude of Tropopause and converting ft to m [m]
 
-#https://www.researchgate.net/publication/282983416_Finite_element_analysis_of_space_debris_removal_by_high-power_lasers
 #Link to specific heat capacity
+#https://www.researchgate.net/publication/282983416_Finite_element_analysis_of_space_debris_removal_by_high-power_lasers
 #I am unsure about it
 Cp = 0.52 #Specific Heat Capacity for a 5cm by 5cm space debris
 
