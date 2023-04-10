@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.constants import G
+import matplotlib.pyplot as plt
 
 
 #The greatest concentration in space debris is in the altitudes between 800 km & 850km 
@@ -58,9 +59,10 @@ def lapseRate_func(altitude):
 
 
 #The function figure out the air density for the certain altitude
-def density_func(altitude):
+def density_func(height):
+    altitude = height - r_e
     l = lapseRate_func(altitude)
-    if (altitude>=h_tropopause):
+    if (height>=h_tropopause):
         p = p0*(1-(l*U/temp0_pause))**(g*M/(R*l)-1)*np.e**(-(height-U/H_tp))
     else:
         p = Pa_0*M/(R*temp0_sphere)*(1-(l*U/temp0_sphere))**(g*M/(R*l)-1)
@@ -71,6 +73,9 @@ def dragForce_func(altitude):
     v = np.sqrt(mu/height)
     dragForce = 0.5*density_func(altitude)*c_d*drag_area*v**2
     return dragForce
+
+for i in range(0,600000):
+    plt.dragForce_func(i)
 
 """
 
