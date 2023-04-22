@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 #Therefore I am going to assume that the Satellite should be at 850 km
 orbit_start =  850000 #[m]
 #Drag is in effect even at 2000km, but the tendency for satellites to be brought down to Earth easily is in the range of 200-600km
-#Therefore I assume that 600km would be perfect for micro debris to experience drag to be brought to earth
-orbit_drag =  600000 #[m]
+#Because I know what the 500km atmosphere density behaves, I chose this at my starting orbit drag
+orbit_drag =  500000 #[m]
 
-#Probably has to deal with Atmospheric Entry Heat math
-orbit_burn =  
+#space debris reentries, with the much lower velocity of ~ 8 km/s only start to show significant atmospheric interaction below 90 km.
+orbit_burn =  90000 #[m]
 
 d_in = 0.4 #radius of Debris in meters
 r_in = d_in/2
@@ -28,6 +28,19 @@ g = 9.81 #Gravity Acceleration [m/s^2]
 R = 8.31 #Ideal Gas Constant [J/(mol*K)]
 
 
+F10 = 70
+Ap = 0
+
+#Density Function for 180 < altitude (km) < 500
+def densityFunction(altitude):
+    T = 900 + 2.5*(F10 - 70) + 1.5*Ap # [Kelvin]
+    μ = 27 - 0.012*(altitude - 200) #180 < altitude (km) < 500
+    H = T / μ # [km]
+    p = 6*10**(-10)*np.e**(-1*(altitude - 175) / H ) #[kg m^(-3)] density
+    return p
+
+
+
 
 H_tp = 6.3e3 #Height Scale of the Exponential Fall for Density [m]
 temp0_pause = 220 #Intial Temperature at Tropopause [K]
@@ -35,6 +48,8 @@ temp0_sphere = 288 #Intial Temperature at Troposphere [K]
 M = 0.0289652 #Molar Mass of dry air [kg/mol]
 
 
+
+"""
 U = 20 #Height between Troposphere and Tropopause
 p0 = 1.255 #Standard Atmosphere Intial Density [kg/m^3]
 Pa_0 = 101.325 #Standard Atmosphere Intial Pressure [kPa]
@@ -76,6 +91,8 @@ def dragForce_func(altitude):
 
 for i in range(0,600000):
     plt.dragForce_func(i)
+
+"""
 
 """
 
