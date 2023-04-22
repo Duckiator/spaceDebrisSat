@@ -31,6 +31,13 @@ R = 8.31 #Ideal Gas Constant [J/(mol*K)]
 F10 = 70
 Ap = 0
 
+
+#To Calculate Total Energy
+v_orbit = np.sqrt(mu/orbit_start)
+KE = 1/2 * m * v_orbit #kinetic energy
+PE = -G*M_e*m/orbit_start #potential energy
+E_tot = KE + PE
+
 #Density Function for 180 < altitude (km) < 500
 def densityFunction(altitude):
     T = 900 + 2.5*(F10 - 70) + 1.5*Ap # [Kelvin]
@@ -39,14 +46,36 @@ def densityFunction(altitude):
     p = 6*10**(-10)*np.e**(-1*(altitude - 175) / H ) #[kg m^(-3)] density
     return p
 
+def velocityFunction(altitude):
+    PE_C = -G*M_e*m/altitude #Changing Potential energy
+    v = np.sqrt(2*(E_tot - PE_C)/m)
+    return v
+
+def orbitalDecayFunction(altitude):
+    drag_deceleration = 1/2 * densityFunction(altitude) * (velocityFunction(altitude)**2)*c_d*drag_area/m
+    return drag_deceleration
+
+     
+
+for i in range(orbit_start,orbit_drag):
+    plt.plot(orbitalDecayFunction(i),i, 'ro')
+
+plt.show()
 
 
 
+
+
+
+
+
+
+""" 
 H_tp = 6.3e3 #Height Scale of the Exponential Fall for Density [m]
 temp0_pause = 220 #Intial Temperature at Tropopause [K]
 temp0_sphere = 288 #Intial Temperature at Troposphere [K]
 M = 0.0289652 #Molar Mass of dry air [kg/mol]
-
+"""
 
 
 """
